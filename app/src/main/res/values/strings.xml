@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">StudyAndroidBase</string>
+    <string name="cancel_work">Cancel work</string>
 </resources>
