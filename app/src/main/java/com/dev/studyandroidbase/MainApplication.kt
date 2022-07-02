@@ -1,4 +1,4 @@
-package com.dev.studyandroidbase.notification
+package com.dev.studyandroidbase
 
 import android.app.Application
 import androidx.viewbinding.BuildConfig
