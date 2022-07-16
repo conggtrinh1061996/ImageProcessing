@@ -4,19 +4,14 @@ import android.app.Application
 import androidx.viewbinding.BuildConfig
 import androidx.work.Configuration
 import com.dev.studyandroidbase.utils.AppLogger
+import dagger.hilt.android.HiltAndroidApp
 
-class MainApplication: Application(), Configuration.Provider {
+@HiltAndroidApp
+class MainApplication: Application() {
 
 	override fun onCreate() {
 		super.onCreate()
 		AppLogger.init()
 	}
 
-	override fun getWorkManagerConfiguration(): Configuration =
-		if (BuildConfig.DEBUG) Configuration.Builder()
-			.setMinimumLoggingLevel(android.util.Log.DEBUG)
-			.build()
-		else Configuration.Builder()
-			.setMinimumLoggingLevel(android.util.Log.ERROR)
-			.build()
 }
