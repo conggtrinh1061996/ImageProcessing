@@ -85,5 +85,7 @@ dependencies {
 
     // OKHttp
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.3"
+    //multidex application
+    implementation "androidx.multidex:multidex:2.0.1"
 
 }

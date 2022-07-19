@@ -1,9 +1,11 @@
 package com.dev.studyandroidbase.ui.activity
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.dev.studyandroidbase.R
 import com.dev.studyandroidbase.base.BaseActivity
 import com.dev.studyandroidbase.databinding.ActivityMainBinding
+import com.dev.studyandroidbase.utils.AppLogger
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -12,9 +14,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
 	
 	override fun layoutId(): Int = R.layout.activity_main
 	
+	override val viewModel: MainViewModel by viewModels()
+	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		viewModel.setNavigator(this)
 	}
+	
+	
 	
 }
