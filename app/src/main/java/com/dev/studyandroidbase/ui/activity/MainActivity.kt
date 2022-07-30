@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import com.dev.studyandroidbase.R
 import com.dev.studyandroidbase.base.BaseActivity
 import com.dev.studyandroidbase.databinding.ActivityMainBinding
+import com.dev.studyandroidbase.notification.NotificationSchedule
 import com.dev.studyandroidbase.utils.AppLogger
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,8 +19,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+		NotificationSchedule.scheduleFirstNotify(this)
 	}
-	
 	
 	
 }
