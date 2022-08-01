@@ -10,7 +10,6 @@ class PreferenceHelper @Inject constructor(
 ): Preference(context, PREF_NAME) {
 	
 	var uriMainImage by stringPref("uri_main_image", "")
-	var countOpenApp by intPref("count_open_app", 0)
 	
 	companion object {
 		private var instance: PreferenceHelper? = null

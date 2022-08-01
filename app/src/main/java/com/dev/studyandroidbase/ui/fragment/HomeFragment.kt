@@ -31,6 +31,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 		binding.mainImage.setOnClickListener {
 			observer.selectImage()
 		}
+		
 	}
 	
 }

@@ -6,7 +6,6 @@ import com.dev.studyandroidbase.R
 import com.dev.studyandroidbase.base.BaseActivity
 import com.dev.studyandroidbase.databinding.ActivityMainBinding
 import com.dev.studyandroidbase.notification.NotificationSchedule
-import com.dev.studyandroidbase.utils.AppLogger
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +20,5 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
 		super.onCreate(savedInstanceState)
 		NotificationSchedule.scheduleFirstNotify(this)
 	}
-	
 	
 }
