@@ -9,15 +9,14 @@ class MainApplication: MultiDexApplication() {
 
 	override fun onCreate() {
 		super.onCreate()
+		_instance = this
 		AppLogger.init()
 	}
 	
 	companion object {
-		private lateinit var instance: MainApplication
-		val getInstance: MainApplication
-			get() {
-				return instance
-			}
+		private lateinit var _instance: MainApplication
+		val instance: MainApplication
+			get() = _instance
 	}
 
 }
