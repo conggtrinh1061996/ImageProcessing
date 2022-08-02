@@ -19,7 +19,7 @@ abstract class BaseNotifyWorker(
 
 		notificationBuilder.setSmallIcon(R.drawable.ic_favorite)
 			.setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.music_for_you))
-			.setPriority(NotificationCompat.PRIORITY_DEFAULT)
+			.setStyle(NotificationCompat.BigTextStyle())
 			.setAutoCancel(true)
 
 		val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

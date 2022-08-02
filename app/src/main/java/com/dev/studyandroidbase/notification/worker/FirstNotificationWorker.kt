@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.work.WorkerParameters
+import com.dev.studyandroidbase.ui.activity.MainActivity
 
 class FirstNotificationWorker(
 	context: Context,
@@ -13,14 +14,13 @@ class FirstNotificationWorker(
 ): BaseNotifyWorker(context, workerParameters) {
 
 	override fun createNotification(): NotificationCompat.Builder? {
-		val className = inputData.getString(KEY_ACTIVITY_NAME) ?: return null
-		val intent = Intent(applicationContext, Class.forName(className)).apply {
+		val intent = Intent(applicationContext, MainActivity::class.java).apply {
 			flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 		}
 
 		val pendingIntent = PendingIntent.getActivity(
 			applicationContext,
-			0,
+			1,
 			intent,
 			if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) 0 else PendingIntent.FLAG_IMMUTABLE
 		)
