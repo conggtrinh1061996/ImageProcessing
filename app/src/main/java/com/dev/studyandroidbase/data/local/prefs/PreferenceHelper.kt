@@ -10,6 +10,7 @@ class PreferenceHelper @Inject constructor(
 ): Preference(context, PREF_NAME) {
 	
 	var uriMainImage by stringPref("uri_main_image", "")
+	var isFirstOpenApp by booleanPref("is_first_open_app", true)
 	
 	companion object {
 		private var instance: PreferenceHelper? = null

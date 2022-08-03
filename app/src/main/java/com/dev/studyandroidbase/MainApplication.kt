@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.DisplayMetrics
 import android.view.WindowManager
 import androidx.multidex.MultiDexApplication
+import com.dev.studyandroidbase.data.local.prefs.PreferenceHelper
 import com.dev.studyandroidbase.notification.NotificationSchedule
 import com.dev.studyandroidbase.utils.AppLogger
 import dagger.hilt.android.HiltAndroidApp
@@ -18,7 +19,10 @@ class MainApplication: MultiDexApplication() {
 		_instance = this
 		AppLogger.init()
 		displayMetrics = getScreen(this)
-		NotificationSchedule.createNotificationChannel(this)
+		if (PreferenceHelper.getInstance().isFirstOpenApp) {
+			PreferenceHelper.getInstance().isFirstOpenApp = false
+			NotificationSchedule.createNotificationChannel(this)
+		}
 	}
 	
 	companion object {
