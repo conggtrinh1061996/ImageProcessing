@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomClock">
+        <attr name="color_strock" format="color" />
+        <attr name="width_strock_circle" format="dimension" />
+        <attr name="x_title" format="dimension" />
+        <attr name="y_title" format="dimension" />
+        <attr name="text_size_title" format="dimension" />
+        <attr name="is_square_width" format="boolean" />
+    </declare-styleable>
+</resources>
