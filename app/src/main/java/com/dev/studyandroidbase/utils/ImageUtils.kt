@@ -4,8 +4,19 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import com.dev.studyandroidbase.MainApplication
+import java.io.*
 
 object ImageUtils {
+
+	val cacheDir by lazy { MainApplication.instance.cacheDir }
+
+	private val appCacheDir by lazy {
+		val file = File(cacheDir, "wonder_photo_cache_dir")
+		if (!file.exists()) {
+			file.mkdir()
+		}
+		file
+	}
 
 	val widthScreen: Int
 		get() = MainApplication.instance.displayMetrics.widthPixels
@@ -42,5 +53,30 @@ object ImageUtils {
 			val srcBitMap = BitmapFactory.decodeStream(it, null, option)
 			return srcBitMap!!
 		}
+	}
+
+	fun saveBitmapToFile(bitmap: Bitmap, file: File): Boolean {
+		val byteArrayOutStream = ByteArrayOutputStream()
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutStream)
+		val byteArray = byteArrayOutStream.toByteArray()
+		val fileOutputStream = FileOutputStream(file)
+		return try {
+			fileOutputStream.write(byteArray)
+			true
+		} catch (e: FileNotFoundException) {
+			e.printStackTrace()
+			false
+		} catch (e2: IOException) {
+			e2.printStackTrace()
+			false
+		} finally {
+			fileOutputStream.flush()
+			fileOutputStream.close()
+		}
+	}
+
+	fun createTempFile(fileName: String): File {
+		if (!appCacheDir.exists()) appCacheDir.mkdir()
+		return File(appCacheDir, fileName)
 	}
 }

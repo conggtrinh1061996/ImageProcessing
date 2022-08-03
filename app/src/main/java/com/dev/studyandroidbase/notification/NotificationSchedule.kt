@@ -22,14 +22,14 @@ object NotificationSchedule {
 		CoroutineScope(Dispatchers.IO).launch {
 			val constraints = Constraints.Builder()
 				.setRequiredNetworkType(NetworkType.NOT_REQUIRED)
-				.setRequiresBatteryNotLow(false)
-				.setRequiresCharging(true)
+				.setRequiresBatteryNotLow(true)
+				.setRequiresCharging(false)
 				.build()
 
 			val workManager = WorkManager.getInstance(context)
 
 			val workRequest = PeriodicWorkRequest.Builder(
-				FirstNotificationWorker::class.java, 1, TimeUnit.HOURS).setConstraints(constraints).build()
+				FirstNotificationWorker::class.java, 30, TimeUnit.MINUTES).setConstraints(constraints).build()
 			workManager.enqueue(workRequest)
 		}
 	}
