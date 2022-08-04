@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#a4a4a4</color>
     <color name="transparents">#00000000</color>
+    <color name="color_ripple">#80FFFFFF</color>
+
 </resources>

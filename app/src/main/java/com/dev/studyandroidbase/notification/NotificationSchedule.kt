@@ -29,7 +29,7 @@ object NotificationSchedule {
 			val workManager = WorkManager.getInstance(context)
 
 			val workRequest = PeriodicWorkRequest.Builder(
-				FirstNotificationWorker::class.java, 30, TimeUnit.MINUTES).setConstraints(constraints).build()
+				FirstNotificationWorker::class.java, 60, TimeUnit.MINUTES).setConstraints(constraints).build()
 			workManager.enqueue(workRequest)
 		}
 	}

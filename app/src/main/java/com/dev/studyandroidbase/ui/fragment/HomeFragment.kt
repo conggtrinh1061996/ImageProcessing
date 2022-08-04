@@ -54,6 +54,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 		}
 		//
 		setUpClickTest()
+		sharpendedImage()
 	}
 
 	private fun getImageSaved() {
@@ -139,7 +140,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 		animator.startDelay = 1000
 		buttonAnimation = animator
 		animator.play(heartAnimator)
-		/*animator.addListener(object : AnimatorListenerAdapter() {
+		animator.addListener(object : AnimatorListenerAdapter() {
 			private var mCancel = false
 			override fun onAnimationStart(animation: Animator?) {
 				mCancel = false
@@ -154,7 +155,16 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 				binding.iconHeart.scaleX = 1f
 				binding.iconHeart.scaleY = 1f
 			}
-		})*/
+		})
+	}
+	
+	private fun sharpendedImage() {
+		binding.btnSharpened.setOnClickListener {
+			CoroutineScope(Dispatchers.IO).launch {
+				/*val bitmapSharpened = ImageUtils.getBitmapSharpened(bitmap!!, true)
+				binding.mainImage.setImageBitmap(bitmapSharpened)*/
+			}
+		}
 	}
 
 	private fun cancelAnimation() {
