@@ -1,11 +1,11 @@
 package com.dev.studyandroidbase.utils
 
 import android.graphics.*
-import android.graphics.Bitmap.Config
+import com.dev.studyandroidbase.R
 import kotlin.math.max
 import kotlin.math.min
 
-object Filter {
+object FilterUtils {
 	
 	fun sharpenBitmap(src: Bitmap): Bitmap {
 		if (!src.isMutable) {

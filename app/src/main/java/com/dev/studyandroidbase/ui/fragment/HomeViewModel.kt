@@ -9,10 +9,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.dev.studyandroidbase.base.BaseViewModel
 import com.dev.studyandroidbase.base.UseCase.None
+import com.dev.studyandroidbase.data.model.Filter
 import com.dev.studyandroidbase.data.model.Mars
 import com.dev.studyandroidbase.domain.usecase.FetchMarsUseCase
 import com.dev.studyandroidbase.utils.AppLogger
-import com.dev.studyandroidbase.utils.Filter
+import com.dev.studyandroidbase.utils.FilterUtils
 import com.dev.studyandroidbase.utils.ImageUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -47,21 +48,22 @@ class HomeViewModel @Inject constructor(
 	}
 	
 	fun getBitmapSharpened(src: Bitmap, recycleSrc: Boolean): Bitmap {
-		val sharpened = Filter.sharpenBitmap(src.copy(RGB_565, true))
+		val sharpened = FilterUtils.sharpenBitmap(src.copy(RGB_565, true))
 		if (recycleSrc && sharpened != src) {
 			src.recycle()
 		}
 		return sharpened
 	}
 	
-	fun progressImage(view: ImageView) {
+	fun progressImage(view: ImageView, position: Int) {
 		viewModelScope.launch {
 			isLoading.set(true)
 			val originDeferred = viewModelScope.async(Dispatchers.IO) { ImageUtils.getOriginBitmap() }
 			val originBitmap = originDeferred.await()
-			
-			val filteredDeferred = viewModelScope.async(Dispatchers.IO) { Filter.grayImage(originBitmap) }
+			//
+			val filteredDeferred = viewModelScope.async(Dispatchers.IO) { FilterUtils.grayImage(originBitmap) }
 			val filteredBitmap = filteredDeferred.await()
+			//
 			isLoading.set(false)
 			view.setImageBitmap(filteredBitmap)
 		}

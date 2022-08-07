@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -42,19 +43,31 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>-->
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerFilter"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginHorizontal="12dp"
+            android:orientation="horizontal"
+            tools:listitem="@layout/item_filter"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/guideline"
+            app:layout_constraintBottom_toTopOf="@id/guidelineSecond"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineSecond"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.86" />
+            app:layout_constraintGuide_percent="0.9" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btnFilter"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:padding="8dp"
+            android:padding="12dp"
             android:src="@drawable/ic_sharpened"
             android:background="@drawable/bg_button_sharpened"
             app:layout_constraintTop_toBottomOf="@id/guidelineSecond"

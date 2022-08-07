@@ -17,4 +17,8 @@
     <style name="style_image_round">
         <item name="cornerSize">2%</item>
     </style>
+
+    <style name="style_image_round_item_filter">
+        <item name="cornerSize">8%</item>
+    </style>
 </resources>

@@ -5,7 +5,6 @@ import android.animation.*
 import android.graphics.*
 import android.net.Uri
 import android.os.Bundle
-import android.view.Display
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.GetContent
@@ -14,7 +13,7 @@ import com.dev.studyandroidbase.R
 import com.dev.studyandroidbase.base.BaseFragment
 import com.dev.studyandroidbase.data.local.prefs.PreferenceHelper
 import com.dev.studyandroidbase.databinding.FragmentHomeBinding
-import com.dev.studyandroidbase.utils.Filter
+import com.dev.studyandroidbase.ui.adapter.ItemFilterAdapter
 import com.dev.studyandroidbase.utils.ImageUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -29,6 +28,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 	var bitmap: Bitmap? = null
 	
 	private val coroutineScope = CoroutineScope(Dispatchers.Main)
+	private var adapter: ItemFilterAdapter? = null
 	
 	private val getContent = registerForActivityResult(GetContent()) { uri ->
 		bitmap = ImageUtils.decodeBitmapFromResource(uri!!)
@@ -51,6 +51,8 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 		super.onViewCreated(view, savedInstanceState)
 		binding.apply {
 			vm = viewModel
+			adapter = ItemFilterAdapter(requireContext())
+			recyclerFilter.adapter = adapter
 		}
 		getImageSaved()
 		// set click mainImage
@@ -63,7 +65,11 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 		setUpClickTest()
 		// progress image
 		binding.btnFilter.setOnClickListener {
-			viewModel.progressImage(binding.mainImage)
+			viewModel.progressImage(binding.mainImage, 0)
+		}
+		// listener click
+		adapter!!.itemClick = { position ->
+			viewModel.progressImage(binding.mainImage, position)
 		}
 	}
 
