@@ -1,13 +1,23 @@
 package com.dev.studyandroidbase.ui.fragment
 
+import android.graphics.Bitmap
+import android.graphics.Bitmap.Config.RGB_565
+import android.widget.ImageView
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.dev.studyandroidbase.base.BaseViewModel
 import com.dev.studyandroidbase.base.UseCase.None
 import com.dev.studyandroidbase.data.model.Mars
 import com.dev.studyandroidbase.domain.usecase.FetchMarsUseCase
 import com.dev.studyandroidbase.utils.AppLogger
+import com.dev.studyandroidbase.utils.Filter
+import com.dev.studyandroidbase.utils.ImageUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,6 +27,7 @@ class HomeViewModel @Inject constructor(
 	
 	private var _listMars: MutableLiveData<List<Mars>> = MutableLiveData()
 	val listMars: LiveData<List<Mars>> get() = _listMars
+	val isLoading = ObservableBoolean(false)
 	
 	init {
 		fetchMars()
@@ -35,4 +46,24 @@ class HomeViewModel @Inject constructor(
 		}
 	}
 	
+	fun getBitmapSharpened(src: Bitmap, recycleSrc: Boolean): Bitmap {
+		val sharpened = Filter.sharpenBitmap(src.copy(RGB_565, true))
+		if (recycleSrc && sharpened != src) {
+			src.recycle()
+		}
+		return sharpened
+	}
+	
+	fun progressImage(view: ImageView) {
+		viewModelScope.launch {
+			isLoading.set(true)
+			val originDeferred = viewModelScope.async(Dispatchers.IO) { ImageUtils.getOriginBitmap() }
+			val originBitmap = originDeferred.await()
+			
+			val filteredDeferred = viewModelScope.async(Dispatchers.IO) { Filter.grayImage(originBitmap) }
+			val filteredBitmap = filteredDeferred.await()
+			isLoading.set(false)
+			view.setImageBitmap(filteredBitmap)
+		}
+	}
 }

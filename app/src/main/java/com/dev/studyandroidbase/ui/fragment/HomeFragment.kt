@@ -5,6 +5,7 @@ import android.animation.*
 import android.graphics.*
 import android.net.Uri
 import android.os.Bundle
+import android.view.Display
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.GetContent
@@ -13,6 +14,7 @@ import com.dev.studyandroidbase.R
 import com.dev.studyandroidbase.base.BaseFragment
 import com.dev.studyandroidbase.data.local.prefs.PreferenceHelper
 import com.dev.studyandroidbase.databinding.FragmentHomeBinding
+import com.dev.studyandroidbase.utils.Filter
 import com.dev.studyandroidbase.utils.ImageUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -25,6 +27,8 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 	
 	override val viewModel: HomeViewModel by viewModels()
 	var bitmap: Bitmap? = null
+	
+	private val coroutineScope = CoroutineScope(Dispatchers.Main)
 	
 	private val getContent = registerForActivityResult(GetContent()) { uri ->
 		bitmap = ImageUtils.decodeBitmapFromResource(uri!!)
@@ -45,6 +49,9 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 	
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
+		binding.apply {
+			vm = viewModel
+		}
 		getImageSaved()
 		// set click mainImage
 		binding.mainImage.setOnClickListener {
@@ -54,7 +61,10 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 		}
 		//
 		setUpClickTest()
-		sharpendedImage()
+		// progress image
+		binding.btnFilter.setOnClickListener {
+			viewModel.progressImage(binding.mainImage)
+		}
 	}
 
 	private fun getImageSaved() {
@@ -81,45 +91,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 				startAnimation()
 			}
 		}
-		//
-		heartAnimate()
 	}
-
-	/*private fun animateTest() {
-		val downAnimator = ObjectAnimator.ofPropertyValuesHolder(
-			binding.downloadButton,
-			PropertyValuesHolder.ofFloat("scaleX", 1f, 1.1f, 1f),
-			PropertyValuesHolder.ofFloat("scaleY", 1f, 1.1f, 1f)
-		).setDuration(300)
-		val rippleDownload = ObjectAnimator.ofPropertyValuesHolder(
-			binding.downloadButtonAnimationHelper,
-			PropertyValuesHolder.ofFloat("scaleX", 1f, 2.5f),
-			PropertyValuesHolder.ofFloat("scaleY", 1f, 2.5f),
-			PropertyValuesHolder.ofFloat("alpha", 0.8f, 0f)
-		).setDuration(600)
-
-		val animatorSet = AnimatorSet()
-		animatorSet.startDelay = 1000
-		buttonAnimation = animatorSet
-		animatorSet.playTogether(downAnimator, rippleDownload)
-		animatorSet.addListener(object : AnimatorListenerAdapter() {
-			private var mCanceled = false
-			override fun onAnimationStart(animation: Animator?) {
-				mCanceled = false
-			}
-
-			override fun onAnimationEnd(animation: Animator?) {
-				if (!mCanceled) startAnimation()
-			}
-
-			override fun onAnimationCancel(animation: Animator?) {
-				binding.downloadButtonAnimationHelper.alpha = 0f
-				binding.downloadButton.scaleX = 1f
-				binding.downloadButton.scaleY = 1f
-				mCanceled = true
-			}
-		})
-	}*/
 
 	private fun startAnimation() {
 		buttonAnimation?.apply {
@@ -130,7 +102,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 		}
 	}
 
-	private fun heartAnimate() {
+	/*private fun heartAnimate() {
 		val heartAnimator = ObjectAnimator.ofPropertyValuesHolder(
 			binding.iconHeart,
 			PropertyValuesHolder.ofFloat("scaleX", 1f, 2f, 1f),
@@ -156,17 +128,8 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 				binding.iconHeart.scaleY = 1f
 			}
 		})
-	}
+	}*/
 	
-	private fun sharpendedImage() {
-		binding.btnSharpened.setOnClickListener {
-			CoroutineScope(Dispatchers.IO).launch {
-				/*val bitmapSharpened = ImageUtils.getBitmapSharpened(bitmap!!, true)
-				binding.mainImage.setImageBitmap(bitmapSharpened)*/
-			}
-		}
-	}
-
 	private fun cancelAnimation() {
 		buttonAnimation?.cancel()
 	}
