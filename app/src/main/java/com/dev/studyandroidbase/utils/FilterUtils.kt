@@ -2,6 +2,7 @@ package com.dev.studyandroidbase.utils
 
 import android.graphics.*
 import com.dev.studyandroidbase.R
+import com.dev.studyandroidbase.utils.Constants.FilterType.GRAY
 import kotlin.math.max
 import kotlin.math.min
 
@@ -54,7 +55,7 @@ object FilterUtils {
 		return src
 	}
 	
-	fun grayImage(bitmap: Bitmap): Bitmap {
+	private fun grayImage(bitmap: Bitmap): Bitmap {
 		val width = bitmap.width
 		val height = bitmap.height
 		val grayBitmap = Bitmap.createBitmap(width, height, bitmap.config)
@@ -74,5 +75,30 @@ object FilterUtils {
 			}
 		}
 		return grayBitmap
+	}
+	
+	private fun grayScale(): ColorMatrix {
+		val grayMatrix = floatArrayOf(
+			0.33f, 0.33f, 0.33f, 0f, 0f,
+			0.33f, 0.33f, 0.33f, 0f, 0f,
+			0.33f, 0.33f, 0.33f, 0f, 0f,
+			0f, 0f, 0f, 1f, 0f
+		)
+		return ColorMatrix(grayMatrix)
+	}
+	
+	fun filterType(bitmap: Bitmap, type: Int): Bitmap {
+		when (type) {
+			GRAY -> return grayImage(bitmap)
+			else -> return grayImage(bitmap)
+		}
+		
+	}
+	
+	fun filterImageType(type: Int): ColorMatrix {
+		when (type) {
+			GRAY -> return grayScale()
+			else -> return grayScale()
+		}
 	}
 }

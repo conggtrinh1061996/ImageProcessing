@@ -2,6 +2,7 @@ package com.dev.studyandroidbase.ui.fragment
 
 import android.graphics.Bitmap
 import android.graphics.Bitmap.Config.RGB_565
+import android.graphics.ColorMatrixColorFilter
 import android.widget.ImageView
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
@@ -61,11 +62,21 @@ class HomeViewModel @Inject constructor(
 			val originDeferred = viewModelScope.async(Dispatchers.IO) { ImageUtils.getOriginBitmap() }
 			val originBitmap = originDeferred.await()
 			//
-			val filteredDeferred = viewModelScope.async(Dispatchers.IO) { FilterUtils.grayImage(originBitmap) }
+			val filteredDeferred = viewModelScope.async(Dispatchers.IO) { FilterUtils.filterType(originBitmap, position) }
 			val filteredBitmap = filteredDeferred.await()
 			//
 			isLoading.set(false)
 			view.setImageBitmap(filteredBitmap)
+		}
+	}
+	
+	fun progressImageFilter(view: ImageView, position: Int) {
+		viewModelScope.launch {
+			isLoading.set(true)
+			val filterDeferred = viewModelScope.async(Dispatchers.IO) { FilterUtils.filterImageType(position) }
+			val colorMatrix = filterDeferred.await()
+			isLoading.set(false)
+			view.colorFilter = ColorMatrixColorFilter(colorMatrix)
 		}
 	}
 }
