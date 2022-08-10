@@ -2,7 +2,10 @@ package com.dev.studyandroidbase.utils
 
 import android.graphics.*
 import com.dev.studyandroidbase.R
+import com.dev.studyandroidbase.utils.Constants.FilterType.BLUE
 import com.dev.studyandroidbase.utils.Constants.FilterType.GRAY
+import com.dev.studyandroidbase.utils.Constants.FilterType.GREEN
+import com.dev.studyandroidbase.utils.Constants.FilterType.RED
 import kotlin.math.max
 import kotlin.math.min
 
@@ -86,6 +89,46 @@ object FilterUtils {
 		)
 		return ColorMatrix(grayMatrix)
 	}
+
+	private fun redScale(): ColorMatrix {
+		val redMatrix = floatArrayOf(
+			0.33f, 0.33f, 0.33f, 0f, 0f,
+			0f, 0f, 0f, 0f, 0f,
+			0f, 0f, 0f, 0f, 0f,
+			0f, 0f, 0f, 1f, 0f
+		)
+		return ColorMatrix(redMatrix)
+	}
+
+	private fun blueScale(): ColorMatrix {
+		val redMatrix = floatArrayOf(
+			0f, 0f, 0f, 0f, 0f,
+			0f, 0f, 0f, 0f, 0f,
+			0.33f, 0.33f, 0.33f, 0f, 0f,
+			0f, 0f, 0f, 1f, 0f
+		)
+		return ColorMatrix(redMatrix)
+	}
+
+	private fun greenScale(): ColorMatrix {
+		val redMatrix = floatArrayOf(
+			0f, 0f, 0f, 0f, 0f,
+			0.33f, 0.33f, 0.33f, 0f, 0f,
+			0f, 0f, 0f, 0f, 0f,
+			0f, 0f, 0f, 1f, 0f
+		)
+		return ColorMatrix(redMatrix)
+	}
+
+	private fun origionScale(): ColorMatrix {
+		val originMatrix = floatArrayOf(
+			1f, 0f, 0f, 0f, 0f,
+			0f, 1f, 0f, 0f, 0f,
+			0f, 0f, 1f, 0f, 0f,
+			0f, 0f, 0f, 1f, 0f
+		)
+		return ColorMatrix(originMatrix)
+	}
 	
 	fun filterType(bitmap: Bitmap, type: Int): Bitmap {
 		when (type) {
@@ -96,9 +139,12 @@ object FilterUtils {
 	}
 	
 	fun filterImageType(type: Int): ColorMatrix {
-		when (type) {
-			GRAY -> return grayScale()
-			else -> return grayScale()
+		return when (type) {
+			GRAY -> grayScale()
+			RED -> redScale()
+			GREEN -> greenScale()
+			BLUE -> blueScale()
+			else -> origionScale()
 		}
 	}
 }

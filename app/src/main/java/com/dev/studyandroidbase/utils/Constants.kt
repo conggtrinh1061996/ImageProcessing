@@ -11,5 +11,9 @@ object Constants {
 	
 	object FilterType {
 		const val GRAY = 0
+		const val RED = 1
+		const val GREEN = 2
+		const val BLUE = 3
+
 	}
 }

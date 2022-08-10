@@ -65,11 +65,12 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 		setUpClickTest()
 		// progress image
 		binding.btnFilter.setOnClickListener {
-			viewModel.progressImageFilter(binding.mainImage, 0)
+			viewModel.progressImage(binding.mainImage, 0)
 		}
 		// listener click
 		adapter!!.itemClick = { position ->
-			viewModel.progressImage(binding.mainImage, position)
+			viewModel.progressImageFilter(binding.mainImage, position)
+			binding.recyclerFilter.smoothScrollToPosition(position)
 		}
 	}
 

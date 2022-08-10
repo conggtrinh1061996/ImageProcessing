@@ -17,18 +17,18 @@ class ItemFilterAdapter(context: Context): RecyclerView.Adapter<FilterViewHolder
 	
 	private val listColor = listOf(
 		ContextCompat.getColor(context, R.color.gray),
-		ContextCompat.getColor(context, R.color.teal_700),
-		ContextCompat.getColor(context, R.color.teal_200),
-		ContextCompat.getColor(context, R.color.transparents),
-		ContextCompat.getColor(context, R.color.purple_200)
+		ContextCompat.getColor(context, R.color.color_red_0_3a),
+		ContextCompat.getColor(context, R.color.color_green_0_3a),
+		ContextCompat.getColor(context, R.color.color_blue_0_3a),
+		ContextCompat.getColor(context, R.color.color_nofilter)
 	)
 	//
 	var listFilter = mutableListOf(
 		Filter("Gray", listColor[0]),
-		Filter("Green tea", listColor[1]),
-		Filter("Green light", listColor[2]),
-		Filter("No filter", listColor[3]),
-		Filter("Violet", listColor[4]))
+		Filter("Red", listColor[1]),
+		Filter("Green", listColor[2]),
+		Filter("Blue", listColor[3]),
+		Filter("No Filter", listColor[4]))
 	
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterViewHolder {
 		val inflater = LayoutInflater.from(parent.context)

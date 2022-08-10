@@ -9,6 +9,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#a4a4a4</color>
     <color name="transparents">#00000000</color>
-    <color name="color_ripple">#80FFFFFF</color>
+    <color name="color_ripple">#66000000</color>
+    <color name="color_ripple_item_filter">#29000000</color>
+    <color name="color_red_0.3a">#e57373</color>
+    <color name="color_green_0.3a">#81c784</color>
+    <color name="color_blue_0.3a">#64b5f6</color>
+    <color name="color_nofilter">#0A000000</color>
 
 </resources>
