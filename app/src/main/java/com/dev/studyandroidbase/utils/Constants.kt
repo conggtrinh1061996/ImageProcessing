@@ -10,10 +10,11 @@ object Constants {
 	const val PREF_NAME = "RenderEffect_pref"
 	
 	object FilterType {
-		const val GRAY = 0
+		const val NO_FILTER = 0
 		const val RED = 1
 		const val GREEN = 2
 		const val BLUE = 3
+		const val GRAY = 4
 		const val REVERSE = 5
 	}
 }

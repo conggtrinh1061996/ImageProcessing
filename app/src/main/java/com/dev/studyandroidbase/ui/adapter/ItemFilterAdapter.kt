@@ -16,20 +16,20 @@ class ItemFilterAdapter(context: Context): RecyclerView.Adapter<FilterViewHolder
 	var itemClick: ((position: Int) -> Unit)? = null
 	
 	private val listColor = listOf(
-		ContextCompat.getColor(context, R.color.gray),
+		ContextCompat.getColor(context, R.color.color_nofilter),
 		ContextCompat.getColor(context, R.color.color_red_0_3a),
 		ContextCompat.getColor(context, R.color.color_green_0_3a),
 		ContextCompat.getColor(context, R.color.color_blue_0_3a),
-		ContextCompat.getColor(context, R.color.color_nofilter),
+		ContextCompat.getColor(context, R.color.gray),
 		ContextCompat.getColor(context, R.color.color_nofilter)
 	)
 	//
 	var listFilter = mutableListOf(
-		Filter("Gray", listColor[0]),
+		Filter("No Filter", listColor[0]),
 		Filter("Red", listColor[1]),
 		Filter("Green", listColor[2]),
 		Filter("Blue", listColor[3]),
-		Filter("No Filter", listColor[4]),
+		Filter("Gray", listColor[4]),
 		Filter("Reverse", listColor[5])
 	)
 

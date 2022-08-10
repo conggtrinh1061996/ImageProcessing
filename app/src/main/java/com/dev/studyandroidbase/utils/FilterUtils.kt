@@ -5,6 +5,7 @@ import com.dev.studyandroidbase.R
 import com.dev.studyandroidbase.utils.Constants.FilterType.BLUE
 import com.dev.studyandroidbase.utils.Constants.FilterType.GRAY
 import com.dev.studyandroidbase.utils.Constants.FilterType.GREEN
+import com.dev.studyandroidbase.utils.Constants.FilterType.NO_FILTER
 import com.dev.studyandroidbase.utils.Constants.FilterType.RED
 import com.dev.studyandroidbase.utils.Constants.FilterType.REVERSE
 import kotlin.math.max
@@ -151,10 +152,11 @@ object FilterUtils {
 	
 	fun filterImageType(type: Int): ColorMatrix {
 		return when (type) {
-			GRAY -> grayScale()
+			NO_FILTER -> origionScale()
 			RED -> redScale()
 			GREEN -> greenScale()
 			BLUE -> blueScale()
+			GRAY -> grayScale()
 			REVERSE -> reverseColorMatrix()
 			else -> origionScale()
 		}

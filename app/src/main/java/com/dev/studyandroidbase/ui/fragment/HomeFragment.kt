@@ -14,6 +14,7 @@ import com.dev.studyandroidbase.base.BaseFragment
 import com.dev.studyandroidbase.data.local.prefs.PreferenceHelper
 import com.dev.studyandroidbase.databinding.FragmentHomeBinding
 import com.dev.studyandroidbase.ui.adapter.ItemFilterAdapter
+import com.dev.studyandroidbase.utils.AppLogger
 import com.dev.studyandroidbase.utils.ImageUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -63,14 +64,20 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 		}
 		//
 		setUpClickTest()
-		// progress image
-		binding.btnFilter.setOnClickListener {
-			viewModel.progressImage(binding.mainImage, 0)
-		}
 		// listener click
 		adapter!!.itemClick = { position ->
 			viewModel.progressImageFilter(binding.mainImage, position)
 			binding.recyclerFilter.smoothScrollToPosition(position)
+			binding.imgDone.apply {
+				setBackgroundResource(
+					if (position == 0) R.drawable.bg_unchecked_save else R.drawable.bg_checked_save
+				)
+				setOnClickListener {
+					if (position != 0) {
+						AppLogger.d("Click to Save")
+					}
+				}
+			}
 		}
 	}
 
