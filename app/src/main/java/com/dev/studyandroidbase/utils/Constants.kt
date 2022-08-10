@@ -14,6 +14,6 @@ object Constants {
 		const val RED = 1
 		const val GREEN = 2
 		const val BLUE = 3
-
+		const val REVERSE = 5
 	}
 }

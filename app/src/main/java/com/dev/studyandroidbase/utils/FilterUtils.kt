@@ -6,6 +6,7 @@ import com.dev.studyandroidbase.utils.Constants.FilterType.BLUE
 import com.dev.studyandroidbase.utils.Constants.FilterType.GRAY
 import com.dev.studyandroidbase.utils.Constants.FilterType.GREEN
 import com.dev.studyandroidbase.utils.Constants.FilterType.RED
+import com.dev.studyandroidbase.utils.Constants.FilterType.REVERSE
 import kotlin.math.max
 import kotlin.math.min
 
@@ -129,6 +130,16 @@ object FilterUtils {
 		)
 		return ColorMatrix(originMatrix)
 	}
+
+	private fun reverseColorMatrix(): ColorMatrix {
+		val reverseMatrix = floatArrayOf(
+			-1f, 0f, 0f, 0f, 255f,
+			0f, -1f, 0f, 0f, 255f,
+			0f, 0f, -1f, 0f, 255f,
+			0f, 0f, 0f, 1f, 0f
+		)
+		return ColorMatrix(reverseMatrix)
+	}
 	
 	fun filterType(bitmap: Bitmap, type: Int): Bitmap {
 		when (type) {
@@ -144,6 +155,7 @@ object FilterUtils {
 			RED -> redScale()
 			GREEN -> greenScale()
 			BLUE -> blueScale()
+			REVERSE -> reverseColorMatrix()
 			else -> origionScale()
 		}
 	}

@@ -20,6 +20,7 @@ class ItemFilterAdapter(context: Context): RecyclerView.Adapter<FilterViewHolder
 		ContextCompat.getColor(context, R.color.color_red_0_3a),
 		ContextCompat.getColor(context, R.color.color_green_0_3a),
 		ContextCompat.getColor(context, R.color.color_blue_0_3a),
+		ContextCompat.getColor(context, R.color.color_nofilter),
 		ContextCompat.getColor(context, R.color.color_nofilter)
 	)
 	//
@@ -28,8 +29,10 @@ class ItemFilterAdapter(context: Context): RecyclerView.Adapter<FilterViewHolder
 		Filter("Red", listColor[1]),
 		Filter("Green", listColor[2]),
 		Filter("Blue", listColor[3]),
-		Filter("No Filter", listColor[4]))
-	
+		Filter("No Filter", listColor[4]),
+		Filter("Reverse", listColor[5])
+	)
+
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterViewHolder {
 		val inflater = LayoutInflater.from(parent.context)
 		val binding = DataBindingUtil.inflate<ItemFilterBinding>(inflater, R.layout.item_filter, parent, false)
