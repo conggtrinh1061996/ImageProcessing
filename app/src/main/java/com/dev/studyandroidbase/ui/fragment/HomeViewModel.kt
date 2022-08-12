@@ -1,8 +1,10 @@
 package com.dev.studyandroidbase.ui.fragment
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Bitmap.Config.RGB_565
 import android.graphics.ColorMatrixColorFilter
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
@@ -14,6 +16,7 @@ import com.dev.studyandroidbase.data.model.Filter
 import com.dev.studyandroidbase.data.model.Mars
 import com.dev.studyandroidbase.domain.usecase.FetchMarsUseCase
 import com.dev.studyandroidbase.utils.AppLogger
+import com.dev.studyandroidbase.utils.FileUtils
 import com.dev.studyandroidbase.utils.FilterUtils
 import com.dev.studyandroidbase.utils.ImageUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -77,6 +80,16 @@ class HomeViewModel @Inject constructor(
 			val colorMatrix = filterDeferred.await()
 			isLoading.set(false)
 			view.colorFilter = ColorMatrixColorFilter(colorMatrix)
+		}
+	}
+	
+	fun saveImage(view: View, context: Context) {
+		viewModelScope.launch {
+			isLoading.set(true)
+			val deferred = async { FileUtils.storeBitmapToExternalStorage(view, context) }
+			
+			deferred.await()
+			isLoading.set(false)
 		}
 	}
 }

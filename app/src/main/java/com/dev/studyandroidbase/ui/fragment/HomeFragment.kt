@@ -2,12 +2,15 @@ package com.dev.studyandroidbase.ui.fragment
 
 import android.Manifest
 import android.animation.*
+import android.content.pm.PackageManager
 import android.graphics.*
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.GetContent
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import com.dev.studyandroidbase.R
 import com.dev.studyandroidbase.base.BaseFragment
@@ -15,6 +18,9 @@ import com.dev.studyandroidbase.data.local.prefs.PreferenceHelper
 import com.dev.studyandroidbase.databinding.FragmentHomeBinding
 import com.dev.studyandroidbase.ui.adapter.ItemFilterAdapter
 import com.dev.studyandroidbase.utils.AppLogger
+import com.dev.studyandroidbase.utils.Constants.permissions.READ_EXTERNAL_STORAGE
+import com.dev.studyandroidbase.utils.Constants.permissions.WRITE_EXTERNAL_STORAGE
+import com.dev.studyandroidbase.utils.FileUtils
 import com.dev.studyandroidbase.utils.ImageUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -28,8 +34,9 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 	override val viewModel: HomeViewModel by viewModels()
 	var bitmap: Bitmap? = null
 	
-	private val coroutineScope = CoroutineScope(Dispatchers.Main)
 	private var adapter: ItemFilterAdapter? = null
+	private var isReadPermisstionGranted = false
+	private var isWritePermisstionGranted = false
 	
 	private val getContent = registerForActivityResult(GetContent()) { uri ->
 		bitmap = ImageUtils.decodeBitmapFromResource(uri!!)
@@ -44,6 +51,14 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 			getContent.launch("image/*")
 		}
 	}
+	
+	private var permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+		
+		isReadPermisstionGranted = permissions[READ_EXTERNAL_STORAGE] ?: isReadPermisstionGranted
+		isWritePermisstionGranted = permissions[WRITE_EXTERNAL_STORAGE] ?: isReadPermisstionGranted
+		
+	}
+	
 	private var uriPath = ""
 	private var job: Job? = null
 	private var buttonAnimation: Animator? = null
@@ -59,7 +74,7 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 		// set click mainImage
 		binding.mainImage.setOnClickListener {
 			requestPermissionLauncher.launch(
-				Manifest.permission.WRITE_EXTERNAL_STORAGE
+				WRITE_EXTERNAL_STORAGE
 			)
 		}
 		//
@@ -74,7 +89,8 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 				)
 				setOnClickListener {
 					if (position != 0) {
-						AppLogger.d("Click to Save")
+						requestPermission()
+						viewModel.saveImage(binding.mainImage, requireContext())
 					}
 				}
 			}
@@ -151,6 +167,32 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 	override fun onDestroyView() {
 		super.onDestroyView()
 		cancelAnimation()
+	}
+	
+	private fun requestPermission() {
+		val isReadPermission = ContextCompat.checkSelfPermission(
+			requireContext(), READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+		
+		val isWritePermission = ContextCompat.checkSelfPermission(
+			requireContext(), WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+		
+		val minSdkLevel = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+		
+		isReadPermisstionGranted = isReadPermission
+		isWritePermisstionGranted = isWritePermission || minSdkLevel
+		
+		val permissionRequest = mutableListOf<String>()
+		
+		if (!isWritePermisstionGranted) {
+			permissionRequest.add(WRITE_EXTERNAL_STORAGE)
+		}
+		if (!isReadPermisstionGranted) {
+			permissionRequest.add(READ_EXTERNAL_STORAGE)
+		}
+		
+		if (permissionRequest.isNotEmpty()) {
+			permissionLauncher.launch(permissionRequest.toTypedArray())
+		}
 	}
 
 }

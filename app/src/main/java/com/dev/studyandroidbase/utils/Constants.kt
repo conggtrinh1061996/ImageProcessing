@@ -17,4 +17,9 @@ object Constants {
 		const val GRAY = 4
 		const val REVERSE = 5
 	}
+	
+	object permissions {
+		const val READ_EXTERNAL_STORAGE = android.Manifest.permission.READ_EXTERNAL_STORAGE
+		const val WRITE_EXTERNAL_STORAGE = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+	}
 }
