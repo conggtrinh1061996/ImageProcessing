@@ -1,6 +1,5 @@
-package com.dev.studyandroidbase.ui.fragment
+package com.dev.studyandroidbase.ui.fragment.home
 
-import android.Manifest
 import android.animation.*
 import android.content.pm.PackageManager
 import android.graphics.*
@@ -12,15 +11,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.GetContent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.dev.studyandroidbase.R
 import com.dev.studyandroidbase.base.BaseFragment
 import com.dev.studyandroidbase.data.local.prefs.PreferenceHelper
 import com.dev.studyandroidbase.databinding.FragmentHomeBinding
 import com.dev.studyandroidbase.ui.adapter.ItemFilterAdapter
-import com.dev.studyandroidbase.utils.AppLogger
 import com.dev.studyandroidbase.utils.Constants.permissions.READ_EXTERNAL_STORAGE
 import com.dev.studyandroidbase.utils.Constants.permissions.WRITE_EXTERNAL_STORAGE
-import com.dev.studyandroidbase.utils.FileUtils
 import com.dev.studyandroidbase.utils.ImageUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -94,6 +92,10 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 					}
 				}
 			}
+		}
+		// Click button edit image
+		binding.btnEdit.setOnClickListener {
+			findNavController().navigate(R.id.action_home_to_edit)
 		}
 	}
 

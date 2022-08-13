@@ -7,7 +7,28 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.dev.studyandroidbase.ui.fragment.HomeFragment"
+        android:name="com.dev.studyandroidbase.ui.fragment.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_home_to_edit"
+            app:destination="@id/editFragment"
+            app:popUpToSaveState="true"
+            app:restoreState="true"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/editFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.dev.studyandroidbase.ui.fragment.edit.EditFragment"
+        android:label="EditFragment"
+        tools:layout="@layout/fragment_edit" />
 </navigation>

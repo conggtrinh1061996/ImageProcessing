@@ -1,4 +1,4 @@
-package com.dev.studyandroidbase.ui.fragment
+package com.dev.studyandroidbase.ui.fragment.home
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -12,7 +12,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.dev.studyandroidbase.base.BaseViewModel
 import com.dev.studyandroidbase.base.UseCase.None
-import com.dev.studyandroidbase.data.model.Filter
 import com.dev.studyandroidbase.data.model.Mars
 import com.dev.studyandroidbase.domain.usecase.FetchMarsUseCase
 import com.dev.studyandroidbase.utils.AppLogger

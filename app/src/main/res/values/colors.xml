@@ -17,5 +17,6 @@
     <color name="color_nofilter">#0A000000</color>
     <color name="color_blue_gray">#b0bec5</color>
     <color name="color_checked_save">#5efc82</color>
+    <color name="color_milk">#F9F6EF</color>
 
 </resources>

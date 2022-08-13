@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.dev.studyandroidbase.ui.fragment.HomeViewModel" />
+            type="com.dev.studyandroidbase.ui.fragment.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -87,8 +87,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgDone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginBottom="20dp"
             android:layout_marginEnd="20dp"
             android:padding="8dp"
@@ -96,6 +96,17 @@
             android:background="@drawable/bg_unchecked_save"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnEdit"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_palete"
+            android:background="@drawable/ripple_effect_default"
+            android:layout_marginBottom="20dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
