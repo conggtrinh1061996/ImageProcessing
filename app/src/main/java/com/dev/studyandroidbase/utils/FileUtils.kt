@@ -82,7 +82,7 @@ object FileUtils {
 		}
 	}
 	
-	private fun getBimapFromView(view: View): Bitmap {
+	fun getBimapFromView(view: View): Bitmap {
 		return Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888).apply {
 			Canvas(this).apply {
 				view.draw(this)

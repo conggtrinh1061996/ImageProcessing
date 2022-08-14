@@ -18,5 +18,6 @@
     <color name="color_blue_gray">#b0bec5</color>
     <color name="color_checked_save">#5efc82</color>
     <color name="color_milk">#F9F6EF</color>
+    <color name="color_text_adjust_content_done">#008E8E</color>
 
 </resources>
