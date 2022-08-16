@@ -9,7 +9,6 @@ object AdjustImageUtils {
 	const val CONTRAST_DEFAULT = 10f
 	const val SATURATION_DEFAULT = 0.1f
 	
-	
 	fun changeBitmapImageView(
 		src: Bitmap,
 		brightness: Float,
@@ -19,7 +18,7 @@ object AdjustImageUtils {
 		// Create matrix 4x5
 		val colorMatrix = ColorMatrix(
 			floatArrayOf(
-				contrast, saturation, DEFAULT_VALUE, DEFAULT_VALUE, brightness,
+				contrast, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE, brightness,
 				DEFAULT_VALUE, contrast, DEFAULT_VALUE, DEFAULT_VALUE, brightness,
 				DEFAULT_VALUE, DEFAULT_VALUE, contrast, DEFAULT_VALUE, brightness,
 				DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE, ONE_VALUE, DEFAULT_VALUE
@@ -33,4 +32,45 @@ object AdjustImageUtils {
 		canvas.drawBitmap(src, DEFAULT_VALUE, DEFAULT_VALUE, paint)
 		return bitmap
 	}
+	
+	fun adjustBrightness(value: Float): ColorMatrix {
+		val brightnessMatrix = floatArrayOf(
+			ONE_VALUE, 0f, 0f, 0f, value,
+			0f, ONE_VALUE, 0f, 0f, value,
+			0f, 0f, ONE_VALUE, 0f, value,
+			0f, 0f, 0f, 1f, 0f
+		)
+		return ColorMatrix(brightnessMatrix)
+	}
+	
+	fun adjustContrast(value: Float): ColorMatrix {
+		val valueContrast = value / 20
+		val contrastMatrix = floatArrayOf(
+			valueContrast, 0f, 0f, 0f, 0f,
+			0f, valueContrast, 0f, 0f, 0f,
+			0f, 0f, valueContrast, 0f, 0f,
+			0f, 0f, 0f, 1f, 0f
+		)
+		return ColorMatrix(contrastMatrix)
+	}
+	
+	fun adjustOrigin(value: Float, position: Int): ColorMatrix {
+		val brightnessValue = value
+		val contrastValue = 0.2f * value
+		//
+		val originColorMatrix = ColorMatrix()
+		if (value != 0f) {
+			when (position) {
+				0 -> {
+					originColorMatrix.postConcat(adjustBrightness(brightnessValue))
+				}
+				1 -> {
+					originColorMatrix.postConcat(adjustContrast(contrastValue))
+				}
+			}
+		}
+		
+		return ColorMatrix(originColorMatrix)
+	}
+	
 }
