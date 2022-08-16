@@ -18,7 +18,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), MainNav
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		NotificationSchedule.scheduleFirstNotify(this)
+//		NotificationSchedule.scheduleFirstNotify(this)
 	}
 	
 }
