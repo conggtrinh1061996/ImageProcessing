@@ -97,6 +97,8 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 		binding.btnEdit.setOnClickListener {
 			findNavController().navigate(R.id.action_home_to_edit)
 		}
+		// Gray image effect
+		grayImage()
 	}
 
 	private fun getImageSaved() {
@@ -194,6 +196,12 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>(), HomeNavi
 		
 		if (permissionRequest.isNotEmpty()) {
 			permissionLauncher.launch(permissionRequest.toTypedArray())
+		}
+	}
+
+	fun grayImage() {
+		binding.btnGray.setOnClickListener {
+			viewModel.progressGrayImage(binding.mainImage)
 		}
 	}
 

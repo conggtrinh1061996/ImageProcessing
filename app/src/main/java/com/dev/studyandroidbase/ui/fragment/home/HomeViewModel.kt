@@ -58,13 +58,13 @@ class HomeViewModel @Inject constructor(
 		return sharpened
 	}
 	
-	fun progressImage(view: ImageView, position: Int) {
+	fun progressGrayImage(view: ImageView) {
 		viewModelScope.launch {
 			isLoading.set(true)
 			val originDeferred = viewModelScope.async(Dispatchers.IO) { ImageUtils.getOriginBitmap() }
 			val originBitmap = originDeferred.await()
 			//
-			val filteredDeferred = viewModelScope.async(Dispatchers.IO) { FilterUtils.filterType(originBitmap, position) }
+			val filteredDeferred = viewModelScope.async(Dispatchers.IO) { FilterUtils.filterType(originBitmap) }
 			val filteredBitmap = filteredDeferred.await()
 			//
 			isLoading.set(false)

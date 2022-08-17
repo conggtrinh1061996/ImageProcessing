@@ -108,5 +108,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnGray"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_brush"
+            android:padding="4dp"
+            android:background="@drawable/ripple_effect_default"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

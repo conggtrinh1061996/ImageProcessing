@@ -142,12 +142,8 @@ object FilterUtils {
 		return ColorMatrix(reverseMatrix)
 	}
 	
-	fun filterType(bitmap: Bitmap, type: Int): Bitmap {
-		when (type) {
-			GRAY -> return grayImage(bitmap)
-			else -> return grayImage(bitmap)
-		}
-		
+	fun filterType(bitmap: Bitmap): Bitmap {
+		return grayImage(bitmap)
 	}
 	
 	fun filterImageType(type: Int): ColorMatrix {
