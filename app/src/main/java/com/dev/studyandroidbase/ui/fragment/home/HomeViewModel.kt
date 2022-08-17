@@ -50,14 +50,6 @@ class HomeViewModel @Inject constructor(
 		}
 	}
 	
-	fun getBitmapSharpened(src: Bitmap, recycleSrc: Boolean): Bitmap {
-		val sharpened = FilterUtils.sharpenBitmap(src.copy(RGB_565, true))
-		if (recycleSrc && sharpened != src) {
-			src.recycle()
-		}
-		return sharpened
-	}
-	
 	fun progressGrayImage(view: ImageView) {
 		viewModelScope.launch {
 			isLoading.set(true)

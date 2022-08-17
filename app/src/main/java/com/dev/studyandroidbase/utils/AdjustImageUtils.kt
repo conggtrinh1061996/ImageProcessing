@@ -1,6 +1,7 @@
 package com.dev.studyandroidbase.utils
 
 import android.graphics.*
+import android.widget.ImageView
 
 object AdjustImageUtils {
 	private const val DEFAULT_VALUE = 0f
@@ -8,12 +9,11 @@ object AdjustImageUtils {
 	const val BRIGHTNESS_DEFAULT = 100f
 	const val CONTRAST_DEFAULT = 10f
 	const val SATURATION_DEFAULT = 0.1f
-	
+
 	fun changeBitmapImageView(
 		src: Bitmap,
 		brightness: Float,
 		contrast: Float,
-		saturation: Float
 	): Bitmap {
 		// Create matrix 4x5
 		val colorMatrix = ColorMatrix(
@@ -53,7 +53,7 @@ object AdjustImageUtils {
 		)
 		return ColorMatrix(contrastMatrix)
 	}
-	
+
 	fun adjustOrigin(value: Float, position: Int): ColorMatrix {
 		val brightnessValue = value
 		val contrastValue = 0.2f * value
@@ -69,8 +69,31 @@ object AdjustImageUtils {
 				}
 			}
 		}
-		
 		return ColorMatrix(originColorMatrix)
+	}
+
+	/*fun calculateColorMatrix(): ColorMatrix {
+
+	}*/
+
+	fun originMatrix(): ColorMatrix {
+		return ColorMatrix(
+			floatArrayOf(
+				ONE_VALUE, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE,
+				ONE_VALUE, ONE_VALUE, DEFAULT_VALUE, DEFAULT_VALUE, DEFAULT_VALUE,
+				ONE_VALUE, DEFAULT_VALUE, ONE_VALUE, DEFAULT_VALUE, DEFAULT_VALUE,
+				ONE_VALUE, DEFAULT_VALUE, DEFAULT_VALUE, ONE_VALUE, DEFAULT_VALUE
+			)
+		)
+	}
+
+	fun drawBitmap(view: ImageView, bitmap: Bitmap, colorMatrix: ColorMatrix) {
+		val paint = Paint()
+		paint.colorFilter = ColorMatrixColorFilter(colorMatrix)
+		val copyBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+		val canvas = Canvas(copyBitmap)
+		canvas.drawBitmap(copyBitmap, 0f, 0f, paint)
+		view.setImageBitmap(copyBitmap)
 	}
 	
 }

@@ -1,9 +1,9 @@
 package com.dev.studyandroidbase.ui.fragment.edit
 
-import android.graphics.BitmapFactory
-import android.graphics.ColorMatrixColorFilter
+import android.graphics.*
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.viewModels
@@ -59,7 +59,7 @@ class EditFragment: BaseFragment<FragmentEditBinding, EditViewModel>() {
 				btnDone.apply {
 					isVisible = true
 					setOnClickListener {
-					
+
 					}
 				}
 			}
@@ -95,6 +95,5 @@ class EditFragment: BaseFragment<FragmentEditBinding, EditViewModel>() {
 			btnDone.isVisible = false
 		}
 	}
-	
-	
+
 }
