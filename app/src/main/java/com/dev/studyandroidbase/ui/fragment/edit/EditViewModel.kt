@@ -1,8 +1,6 @@
 package com.dev.studyandroidbase.ui.fragment.edit
 
-import android.graphics.Bitmap
-import android.graphics.ColorMatrix
-import android.graphics.ColorMatrixColorFilter
+import android.graphics.*
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.ObservableBoolean
@@ -44,6 +42,21 @@ class EditViewModel: BaseViewModel<EditNavigator>() {
 			}
 			imageDeferred.await()
 		}
+	}
+	
+	fun setImageEffect(view: ImageView, position: Int, value: Float) {
+		val colorMatrixes = ColorMatrix()
+		when (position) {
+			0 -> colorMatrixes.postConcat(AdjustImageUtils.adjustBrightness(value))
+			1 -> colorMatrixes.postConcat(AdjustImageUtils.adjustContrast(value * 0.2f))
+			else -> AdjustImageUtils.adjustBrightness(value)
+		}
+		val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+		view.colorFilter = ColorMatrixColorFilter(colorMatrixes)
+		val canvas = Canvas(bitmap)
+		val paint = Paint()
+		canvas.drawBitmap(bitmap, 0f, 0f, paint)
+		view.setImageBitmap(bitmap)
 	}
 
 }

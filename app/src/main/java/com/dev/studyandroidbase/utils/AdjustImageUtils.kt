@@ -72,10 +72,6 @@ object AdjustImageUtils {
 		return ColorMatrix(originColorMatrix)
 	}
 
-	/*fun calculateColorMatrix(): ColorMatrix {
-
-	}*/
-
 	fun originMatrix(): ColorMatrix {
 		return ColorMatrix(
 			floatArrayOf(
@@ -87,10 +83,10 @@ object AdjustImageUtils {
 		)
 	}
 
-	fun drawBitmap(view: ImageView, bitmap: Bitmap, colorMatrix: ColorMatrix) {
+	fun drawBitmap(view: ImageView, colorMatrix: ColorMatrix) {
 		val paint = Paint()
 		paint.colorFilter = ColorMatrixColorFilter(colorMatrix)
-		val copyBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+		val copyBitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.RGB_565)
 		val canvas = Canvas(copyBitmap)
 		canvas.drawBitmap(copyBitmap, 0f, 0f, paint)
 		view.setImageBitmap(copyBitmap)

@@ -13,6 +13,7 @@ import com.dev.studyandroidbase.base.BaseFragment
 import com.dev.studyandroidbase.data.local.prefs.PreferenceHelper
 import com.dev.studyandroidbase.databinding.FragmentEditBinding
 import com.dev.studyandroidbase.ui.adapter.AdjustImageAdapter
+import com.dev.studyandroidbase.utils.AdjustImageUtils
 import com.dev.studyandroidbase.utils.AppLogger
 import com.google.android.material.slider.Slider
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,7 +60,7 @@ class EditFragment: BaseFragment<FragmentEditBinding, EditViewModel>() {
 				btnDone.apply {
 					isVisible = true
 					setOnClickListener {
-
+						resetScreen()
 					}
 				}
 			}
