@@ -83,13 +83,12 @@ object AdjustImageUtils {
 		)
 	}
 
-	fun drawBitmap(view: ImageView, colorMatrix: ColorMatrix) {
+	fun drawBitmap(colorMatrix: ColorMatrix, src: Bitmap): Bitmap {
 		val paint = Paint()
 		paint.colorFilter = ColorMatrixColorFilter(colorMatrix)
-		val copyBitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.RGB_565)
+		val copyBitmap = Bitmap.createBitmap(src.width, src.height, Bitmap.Config.ARGB_8888)
 		val canvas = Canvas(copyBitmap)
-		canvas.drawBitmap(copyBitmap, 0f, 0f, paint)
-		view.setImageBitmap(copyBitmap)
+		canvas.drawBitmap(src, 0f, 0f, paint)
+		return copyBitmap
 	}
-	
 }

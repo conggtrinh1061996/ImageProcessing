@@ -4,6 +4,7 @@ import android.graphics.*
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
 import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.viewModels
@@ -27,7 +28,7 @@ class EditFragment: BaseFragment<FragmentEditBinding, EditViewModel>() {
 	
 	lateinit var adapter: AdjustImageAdapter
 	private var isEdited = false
-	
+
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		setUpAdapter()
@@ -61,6 +62,8 @@ class EditFragment: BaseFragment<FragmentEditBinding, EditViewModel>() {
 					isVisible = true
 					setOnClickListener {
 						resetScreen()
+						/*val bitmapEdited = viewModel.setImageEffect(position, binding.slider.value, bitmap!!)
+						binding.imageEdit.setImageBitmap(bitmapEdited)*/
 					}
 				}
 			}
@@ -76,9 +79,9 @@ class EditFragment: BaseFragment<FragmentEditBinding, EditViewModel>() {
 				}
 				
 				override fun onStopTrackingTouch(slider: Slider) {
-					AppLogger.d("SliderStop: ${slider.value}")
+					binding.imageEdit.apply {
+					}
 				}
-				
 			})
 			//
 			slider.addOnChangeListener { _, value, _ ->

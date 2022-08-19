@@ -19,6 +19,7 @@
             android:layout_height="0dp"
             android:layout_marginHorizontal="12dp"
             android:layout_marginTop="12dp"
+            android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:background="@drawable/background_main_image"
             app:shapeAppearanceOverlay="@style/style_image_round"

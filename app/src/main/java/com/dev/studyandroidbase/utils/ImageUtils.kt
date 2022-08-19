@@ -25,7 +25,7 @@ object ImageUtils {
 	val heightScreen: Int
 		get() = MainApplication.instance.displayMetrics.heightPixels
 
-	fun calculateImageSize(options: BitmapFactory.Options, reqWidth: Int = widthScreen, reqHeight: Int = heightScreen): Int {
+	private fun calculateImageSize(options: BitmapFactory.Options, reqWidth: Int = widthScreen, reqHeight: Int = heightScreen): Int {
 		// Raw height and width of image
 		val (height: Int, width: Int) = options.run { outHeight to outWidth }
 		var inSampleSize = 1

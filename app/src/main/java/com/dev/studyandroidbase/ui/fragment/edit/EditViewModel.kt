@@ -44,19 +44,14 @@ class EditViewModel: BaseViewModel<EditNavigator>() {
 		}
 	}
 	
-	fun setImageEffect(view: ImageView, position: Int, value: Float) {
+	fun setImageEffect(position: Int, value: Float, src: Bitmap): Bitmap {
 		val colorMatrixes = ColorMatrix()
 		when (position) {
 			0 -> colorMatrixes.postConcat(AdjustImageUtils.adjustBrightness(value))
 			1 -> colorMatrixes.postConcat(AdjustImageUtils.adjustContrast(value * 0.2f))
 			else -> AdjustImageUtils.adjustBrightness(value)
 		}
-		val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
-		view.colorFilter = ColorMatrixColorFilter(colorMatrixes)
-		val canvas = Canvas(bitmap)
-		val paint = Paint()
-		canvas.drawBitmap(bitmap, 0f, 0f, paint)
-		view.setImageBitmap(bitmap)
+		return AdjustImageUtils.drawBitmap(colorMatrixes, src)
 	}
 
 }

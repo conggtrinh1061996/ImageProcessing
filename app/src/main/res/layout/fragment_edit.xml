@@ -14,6 +14,7 @@
             android:layout_marginHorizontal="12dp"
             android:layout_marginTop="12dp"
             android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
             app:shapeAppearanceOverlay="@style/style_image_round"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -25,14 +26,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.72" />
+            app:layout_constraintGuide_percent="0.75" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideLineSecond"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.85" />
+            app:layout_constraintGuide_percent="0.86" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewAjust"
