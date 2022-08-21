@@ -35,7 +35,7 @@ class EditFragment: BaseFragment<FragmentEditBinding, EditViewModel>() {
 		// get image to edit
 		getImageEdit()
 		// click btn cancel
-		binding.btnCancel.setOnClickListener {
+		binding.btnBack.setOnClickListener {
 			findNavController().popBackStack()
 			resetScreen()
 		}
@@ -53,37 +53,18 @@ class EditFragment: BaseFragment<FragmentEditBinding, EditViewModel>() {
 	
 	private fun setUpAdapter() {
 		adapter = AdjustImageAdapter(requireContext())
-		binding.recyclerViewAjust.adapter = adapter
-		adapter.onItemClick = { position ->
+		binding.recyclerViewAdjust.adapter = adapter
+		adapter.onSliderChange = { position, value ->
 			binding.apply {
-				slider.isVisible = true
-				btnSaveAll.isVisible = true
-				btnDone.apply {
-					isVisible = true
-					setOnClickListener {
-						resetScreen()
-						/*val bitmapEdited = viewModel.setImageEffect(position, binding.slider.value, bitmap!!)
-						binding.imageEdit.setImageBitmap(bitmapEdited)*/
-					}
-				}
+				btnDone.isVisible = value != 0f
+				val colorMatrixFilter = viewModel.changeImageEffect(position, value * 1.1f)
+				binding.imageEdit.colorFilter = ColorMatrixColorFilter(colorMatrixFilter)
 			}
-			//
-			sliderChangeValue(position)
 		}
 	}
 	
 	private fun sliderChangeValue(position: Int) {
 		binding.apply {
-			slider.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
-				override fun onStartTrackingTouch(slider: Slider) {
-				}
-				
-				override fun onStopTrackingTouch(slider: Slider) {
-					binding.imageEdit.apply {
-					}
-				}
-			})
-			//
 			slider.addOnChangeListener { _, value, _ ->
 				isEdited = value != 0f
 				val colorMatrixFilter = viewModel.changeImageEffect(position, value * 1.1f)

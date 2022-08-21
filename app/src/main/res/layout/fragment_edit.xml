@@ -28,21 +28,20 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.75" />
 
-        <androidx.constraintlayout.widget.Guideline
+        <!--<androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideLineSecond"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.86" />
+            app:layout_constraintGuide_percent="0.9" />-->
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewAjust"
+            android:id="@+id/recyclerViewAdjust"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/guideLine"
-            app:layout_constraintBottom_toBottomOf="@id/guideLineSecond"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -59,7 +58,7 @@
             app:values="@array/initial_slider_values"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideLineSecond" />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btnDone"
@@ -88,16 +87,25 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/btnCancel"
+            android:id="@+id/btnBack"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_arrow_back"
-            android:padding="4dp"
+            android:padding="6dp"
             android:background="@drawable/ripple_effect_default"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+       <!-- <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomView"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/bottom_menu"
+            android:background="?android:attr/windowBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

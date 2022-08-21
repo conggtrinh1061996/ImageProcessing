@@ -22,4 +22,9 @@ object Constants {
 		const val READ_EXTERNAL_STORAGE = android.Manifest.permission.READ_EXTERNAL_STORAGE
 		const val WRITE_EXTERNAL_STORAGE = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 	}
+	
+	object AdjustConstant {
+		const val BRIGHTNESS = 0
+		const val CONTRAST = 1
+	}
 }
